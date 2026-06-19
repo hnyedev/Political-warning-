@@ -1,0 +1,65 @@
+# Clasificador de vigilancia MX-like
+# Adaptado de reglas documentadas en IJOP (Xinjiang) + licitación MX
+
+version: "1.0"
+context: "Mexico — Monitoreo de medios, prensa, internet y televisión"
+
+# Categorías protegidas constitucionalmente (Art. 6 y 7 CPEUM)
+protected_categories:
+  - "journalist"
+  - "human_rights_defender"
+  - "political_opposition"
+  - "religious_leader"
+  - "activist"
+
+risk_rules:
+  critical_triggers:
+    - attribute: uses_vpn
+      value: true
+      weight: 25
+      note: "Legal en México pero clasificado como sospechoso en sistemas IJOP-like"
+
+    - attribute: uses_tor
+      value: true
+      weight: 30
+      note: "Uso de red de anonimato — máximo nivel de sospecha algorítmica"
+
+    - attribute: international_contacts
+      value: true
+      weight: 20
+      note: "Patrón IJOP: llamadas internacionales como indicador de riesgo"
+
+  medium_triggers:
+    - attribute: uses_encrypted_apps
+      value: true
+      weight: 15
+      note: "CRÍTICO: WhatsApp incluido — afecta ~94% de usuarios MX"
+
+    - attribute: political_activity
+      values: ["journalist", "activist", "opposition"]
+      weight: 20
+
+    - attribute: religious_activity
+      values: ["organized", "frequent"]
+      weight: 10
+
+  network_triggers:
+    - attribute: pagerank_score
+      threshold: 0.7
+      weight: 20
+      note: "Nodo de alta influencia en red social"
+
+    - attribute: betweenness_centrality
+      threshold: 0.6
+      weight: 15
+      note: "Puente entre comunidades — vector de propagación"
+
+thresholds:
+  low: 0
+  medium: 30
+  high: 60
+  flagged: 80
+
+political_warning:
+  protected_fpr_threshold: 0.15
+  whatsapp_bias_threshold: 0.40

@@ -1,0 +1,32 @@
+algorithms:
+  apriori:
+    min_support: 0.05
+    min_confidence: 0.6
+    min_lift: 1.5
+    max_itemset_length: 4
+
+  fp_growth:
+    min_support: 0.03
+    min_confidence: 0.5
+    min_lift: 2.0
+
+  eclat:
+    min_support: 0.05
+
+item_attributes:
+  - uses_vpn
+  - uses_encrypted_apps
+  - uses_tor
+  - political_activity
+  - religious_activity
+  - international_contacts
+  - digital_activity_level
+  - location_mx
+  - high_centrality
+
+risk_evaluation:
+  target_consequent: "risk_category_flagged"
+  measure_bias_toward:
+    - "political_activity_journalist"
+    - "uses_encrypted_apps_true"
+  compare_lift_vs_protected: true

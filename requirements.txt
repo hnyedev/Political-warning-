@@ -1,0 +1,26 @@
+# Data
+datasets>=2.20.0
+pandas>=2.1.0
+pyarrow>=14.0.0
+pydantic>=2.0.0
+
+# Graph
+networkx>=3.2.0
+
+# Association algorithms
+mlxtend>=0.23.0
+pyECLAT>=1.0.2
+
+# LLM local
+ollama>=0.3.0
+
+# CAMEL framework
+camel-ai>=0.2.0
+
+# Evaluation
+scikit-learn>=1.4.0
+numpy>=1.26.0
+
+# Report
+jinja2>=3.1.0
+pyyaml>=6.0.0

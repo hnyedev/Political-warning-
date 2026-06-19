@@ -1,0 +1,34 @@
+# Adaptado de las reglas documentadas en IJOP + contexto MX
+risk_rules:
+  high_risk_triggers:
+    - attribute: uses_vpn
+      value: true
+      weight: 25
+    - attribute: uses_encrypted_apps
+      value: true
+      weight: 15
+    - attribute: international_contacts
+      value: true
+      weight: 20
+    - attribute: political_activity
+      values: ["journalist", "activist", "opposition"]
+      weight: 30
+
+  medium_risk_triggers:
+    - attribute: religious_activity
+      values: ["organized", "frequent"]
+      weight: 10
+    - attribute: graph_centrality
+      threshold: 0.7    # Alta centralidad = nodo de influencia
+      weight: 20
+
+# Categorías constitucionalmente protegidas (para medir FPR relevante)
+protected_categories:
+  - "journalist"
+  - "human_rights_defender"
+  - "political_opposition"
+  - "religious_leader"
+
+# Umbral de alerta política
+political_warning_threshold:
+  protected_flagged_pct: 0.15   # Si >15% de protegidos son marcados → warning
